@@ -1,0 +1,67 @@
+@import "tailwindcss";
+@theme {
+  --color-white: #FFFFFF;
+  --color-black: #222222;
+  --color-blue: #008ECC;
+  --color-primary:#666666;
+  --color-bg:#F5F5F5;
+  --color-BlueGray: #F3F9FB;
+  --color-green:#249B3E;
+}
+
+/* إضافة أنيميشن للانتقالات السلسة */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+/* تحسين أداء hover effects */
+.transition-optimized {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+.transition-optimized:hover {
+  transform: translateY(-2px);
+}
+
+/* تحسين loading للصور */
+.image-loading {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

@@ -1,0 +1,199 @@
+"use client";
+import { useState } from "react";
+import { DataFood } from '../Components/Constent';
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import Link from 'next/link';
+
+export default function GroceriesPage() {
+  const slides = [
+    {
+      title: "Best Deal Online on fresh groceries",
+      headline: "FRESH GROCERIES.",
+      discount: "UP to 50% OFF",
+      image: "/ss1-removebg-preview.webp",
+    },
+    {
+      title: "Best Deal Online on fresh groceries",
+      headline: "FRESH GROCERIES.",
+      discount: "UP to 50% OFF",
+      image: "/ss2-removebg-preview.webp",
+    },
+    {
+      title: "Best Deal Online on fresh groceries",
+      headline: "FRESH GROCERIES.",
+      discount: "UP to 50% OFF",
+      image: "/ss3-removebg-preview.webp",
+    },
+    {
+      title: "Best Deal Online on fresh groceries",
+      headline: "FRESH GROCERIES.",
+      discount: "UP to 50% OFF",
+      image: "/ss4-removebg-preview.webp",
+    },
+    {
+      title: "Best Deal Online on fresh groceries",
+      headline: "FRESH GROCERIES.",
+      discount: "UP to 50% OFF",
+      image: "/ss5-removebg-preview.webp",
+    },
+  ];
+
+  const slide = [
+    {
+      img: "/ss1-removebg-preview.webp",
+      img2: "/ss2-removebg-preview.webp",
+      img3: "/ss3-removebg-preview.webp",
+    },
+    {
+      img: "/ss4-removebg-preview.webp",
+      img2: "/ss5-removebg-preview.webp",
+      img3: "/ss6-removebg-preview.webp",
+    },
+    {
+      img: "/ss1-removebg-preview.webp",
+      img2: "/ss2-removebg-preview.webp",
+      img3: "/ss3-removebg-preview.webp",
+    },
+    {
+      img: "/ss4-removebg-preview.webp",
+      img2: "/ss5-removebg-preview.webp",
+      img3: "/ss6-removebg-preview.webp",
+    },
+    {
+      img: "/ss1-removebg-preview.webp",
+      img2: "/ss2-removebg-preview.webp",
+      img3: "/ss3-removebg-preview.webp",
+    },
+  ];
+
+  const [activeIndex, setActiveIndex] = useState(0);
+  const totalSlides = slides.length;
+
+  const nextSlide = () => {
+    setActiveIndex((prev) => (prev + 1) % totalSlides);
+  };
+
+  const prevSlide = () => {
+    setActiveIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+  };
+
+  return (
+    <>
+      <div className="relative overflow-hidden mx-[6%] my-[2%] rounded-3xl">
+        <div
+          className="flex transition-transform duration-700 ease-in-out"
+          style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+        >
+          {slides.map((slide, index) => (
+            <div key={index} className="min-w-full bg-[#212844] py-[1.5%] relative flex justify-center items-center">
+              <div className="w-[80%] flex flex-col md:flex-row justify-between items-center text-white">
+                <div className="text-center md:text-left">
+                  <p className="text-2xl font-medium">{slide.title}</p>
+                  <h1 className="text-6xl font-medium">{slide.headline}</h1>
+                  <p className="text-2xl font-medium">{slide.discount}</p>
+                </div>
+                <img className="z-50 max-w-[300px]" src={slide.image} alt="Product Image" />
+              </div>
+              <img className=" hidden sm:block absolute top-0 right-0" src="/bg.webp" alt="Background" />
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={prevSlide}
+          className="absolute -left-5 z-50 top-1/2 transform -translate-y-1/2 bg-white w-15 h-15 flex items-center justify-center rounded-full shadow-lg"
+        >
+          <FaChevronLeft className="text-blue text-md bg-BlueGray w-13 h-13 p-2 rounded-full z-50" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute -right-5 z-50 top-1/2 transform -translate-y-1/2 bg-white w-15 h-15 flex items-center justify-center rounded-full shadow-lg"
+        >
+          <FaChevronRight className="text-blue text-md bg-BlueGray w-13 h-13 p-2 rounded-full z-50" />
+        </button>
+        <div className="flex items-center absolute bottom-8 left-1/2 transform -translate-x-1/2">
+          {Array.from({ length: slides.length }).map((_, idx) => (
+            <div key={idx} className="relative flex items-center">
+              <span
+                className={`w-3 h-3 gap-3 rounded-full transition-all duration-300 relative ${
+                  idx === activeIndex || idx === Math.min(activeIndex + 1, slides.length)
+                    ? "bg-white mx-1"
+                    : "bg-gray-400 mx-1"
+                }`}
+              />
+              {idx === activeIndex && idx !== slides.length - 1 && (
+                <div className="absolute left-1/2 -translate-x-1/4 w-9 h-3 bg-white rounded-full"></div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className=" px-[5%] my-2">
+        <div className=" flex justify-between">
+          <h4 className=" text-primary font-bold text-xl">Daily<span className=" text-blue">Essentials</span></h4>
+          <Link href="/search?q=essentials" className=" flex items-center hover:text-blue transition-colors duration-300">View All<MdOutlineKeyboardArrowRight className=" text-2xl text-blue" /></Link>
+        </div>
+        <div className=" h-1 mt-2 bg-[#EDEDED] rounded-full">
+          <div className=" h-1 bg-blue w-[11%] rounded-full"></div>
+        </div>
+      </div>
+
+      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 mx-[6%] gap-5 my-[4%]">
+          {DataFood.map((no) => (
+            <article key={no.id} className=" text-center rounded-lg border-1 border-[#F5F5F5] hover:border-blue hover:scale-105 transition-transform duration-300">
+              <div className=" h-[180px] items-center flex justify-center w-full bg-[#F5F5F5] rounded-t-lg">
+                <img src={no.img} alt={no.title} />
+              </div>
+              <small className=" text-primary font-medium mt-2">{no.dish}</small>
+              <h3 className=" text-black font-medium mb-3">{no.title}</h3>
+            </article>
+          ))}
+      </div>
+
+      <div className="relative overflow-hidden mx-[6%] my-[2%] rounded-3xl">
+        <div
+          className="flex transition-transform duration-700 ease-in-out"
+          style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+        >
+          {slide.map((slide, index) => (
+            <div key={index} className="min-w-full relative flex justify-center items-center">
+              <div className=" w-[90%] gap-5 flex justify-between items-center text-white">
+                <img src={slide.img} alt="" />
+                <img src={slide.img2} alt="" />
+                <img src={slide.img3} alt="" />
+              </div>
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={prevSlide}
+          className="absolute left-2 z-50 top-1/2 transform -translate-y-1/2 bg-white w-15 h-15 flex items-center justify-center rounded-full shadow-lg"
+        >
+          <FaChevronLeft className="text-blue text-md bg-BlueGray w-13 h-13 p-2 rounded-full z-50" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-2 z-50 top-1/2 transform -translate-y-1/2 bg-white w-15 h-15 flex items-center justify-center rounded-full shadow-lg"
+        >
+          <FaChevronRight className="text-blue text-md bg-BlueGray w-13 h-13 p-2 rounded-full z-50" />
+        </button>
+        <div className="flex items-center justify-center absolute bottom-8 left-[40%] transform translate-x-1/2">
+          {Array.from({ length: slides.length + 1 }).map((_, idx) => (
+            <div key={idx} className={`relative flex items-center ${idx === activeIndex ? "" : ""}`}>
+              <span
+                className={`w-3 h-3 gap-3 rounded-full transition-all duration-300 relative ${idx === activeIndex || idx === Math.min(activeIndex + 1, slides.length)
+                  ? "bg-blue mx-1"
+                  : "bg-gray-400 mx-1"
+                  }`}
+              />
+              {idx === activeIndex && idx !== slides.length && (
+                <div className="absolute left-1/2 -translate-x-1/4 w-9 h-3 bg-blue rounded-full"></div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
